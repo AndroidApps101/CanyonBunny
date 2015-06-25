@@ -1,6 +1,8 @@
 package codeguru.canyonbunny.game;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -59,7 +61,27 @@ public class WorldController {
     }
 
     public void update(float deltaTime) {
+        handleDebugInput(deltaTime);
         updateTestObjects(deltaTime);
+    }
+
+    private void handleDebugInput(float deltaTime) {
+        if (Gdx.app.getType() != Application.ApplicationType.Desktop)
+            return;
+
+        float sprMoveSpeed = 5 * deltaTime;
+        if (Gdx.input.isKeyPressed(Input.Keys.A))
+            moveSelectedSprite(-sprMoveSpeed, 0);
+        if (Gdx.input.isKeyPressed(Input.Keys.D))
+            moveSelectedSprite(sprMoveSpeed, 0);
+        if (Gdx.input.isKeyPressed(Input.Keys.W))
+            moveSelectedSprite(0, sprMoveSpeed);
+        if (Gdx.input.isKeyPressed(Input.Keys.S))
+            moveSelectedSprite(0, -sprMoveSpeed);
+    }
+
+    private void moveSelectedSprite(float x, float y) {
+        testSprites[selectedSprite].translate(x, y);
     }
 
     private void updateTestObjects(float deltaTime) {
