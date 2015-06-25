@@ -3,12 +3,13 @@ package codeguru.canyonbunny.game;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 
-public class WorldController {
+public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
 
     public Sprite[] testSprites;
@@ -19,6 +20,7 @@ public class WorldController {
     }
 
     private void init() {
+        Gdx.input.setInputProcessor(this);
         initTestObjects();
     }
 
@@ -89,5 +91,16 @@ public class WorldController {
         rotation += 90 * deltaTime;
         rotation %= 360;
         testSprites[selectedSprite].setRotation(rotation);
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        if (keycode == Input.Keys.R) {
+            init();
+        } else if (keycode == Input.Keys.SPACE) {
+            selectedSprite = (selectedSprite + 1) % testSprites.length;
+        }
+
+        return false;
     }
 }
