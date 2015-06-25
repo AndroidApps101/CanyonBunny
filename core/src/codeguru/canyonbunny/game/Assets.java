@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -12,6 +13,12 @@ import codeguru.canyonbunny.util.Constants;
 public class Assets implements Disposable, AssetErrorListener {
     private static final String TAG = Assets.class.getName();
     public static final Assets instance = new Assets();
+
+    public Bunny bunny;
+    public Rock rock;
+    public GoldCoin goldCoin;
+    public Feather feather;
+    public LevelDecoration levelDecoration;
 
     private AssetManager assetManager;
 
@@ -28,6 +35,17 @@ public class Assets implements Disposable, AssetErrorListener {
         for (String a : assetManager.getAssetNames()) {
             Gdx.app.debug(TAG, "asset: " + a);
         }
+
+        TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
+        for (Texture t : atlas.getTextures()) {
+            t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        }
+
+        bunny = new Bunny(atlas);
+        rock = new Rock(atlas);
+        goldCoin = new GoldCoin(atlas);
+        feather = new Feather(atlas);
+        levelDecoration = new LevelDecoration(atlas);
     }
 
     @Override
