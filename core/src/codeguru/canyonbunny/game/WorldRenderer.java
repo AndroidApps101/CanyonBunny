@@ -29,6 +29,7 @@ public class WorldRenderer implements Disposable {
     }
 
     private void renderTestObjects() {
+        controller.cameraHelper.applyTo(camera);
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         for (Sprite sprite : controller.testSprites) {

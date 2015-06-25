@@ -9,11 +9,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 
+import codeguru.canyonbunny.util.CameraHelper;
+
 public class WorldController extends InputAdapter {
     private static final String TAG = WorldController.class.getName();
 
     public Sprite[] testSprites;
     public int selectedSprite;
+    public CameraHelper cameraHelper = new CameraHelper();
 
     public WorldController() {
         init();
@@ -65,6 +68,7 @@ public class WorldController extends InputAdapter {
     public void update(float deltaTime) {
         handleDebugInput(deltaTime);
         updateTestObjects(deltaTime);
+        cameraHelper.update(deltaTime);
     }
 
     private void handleDebugInput(float deltaTime) {
@@ -99,6 +103,12 @@ public class WorldController extends InputAdapter {
             init();
         } else if (keycode == Input.Keys.SPACE) {
             selectedSprite = (selectedSprite + 1) % testSprites.length;
+
+            if (cameraHelper.hasTarget()) {
+                cameraHelper.setTarget(testSprites[selectedSprite]);
+            }
+        } else if (keycode == Input.Keys.ENTER) {
+            cameraHelper.setTarget(cameraHelper.hasTarget() ? null : testSprites[selectedSprite]);
         }
 
         return false;
