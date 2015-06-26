@@ -16,7 +16,7 @@ public class DesktopLauncher {
             settings.maxWidth = 1024;
             settings.maxHeight = 1024;
             settings.debug = DRAW_DEBUG_OUTLINE;
-            TexturePacker.process(settings, "desktop/assets-raw/images", "android/assets/images",
+            TexturePacker.process(settings, "../../desktop/assets-raw/images", "images",
                     "canyonbunny");
         }
 

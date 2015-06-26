@@ -3,8 +3,10 @@ package codeguru.canyonbunny;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 
+import codeguru.canyonbunny.game.Assets;
 import codeguru.canyonbunny.game.WorldController;
 import codeguru.canyonbunny.game.WorldRenderer;
 
@@ -16,6 +18,7 @@ public class CanyonBunnyGame extends ApplicationAdapter {
     @Override
     public void create() {
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
+        Assets.instance.init(new AssetManager());
         controller = new WorldController();
         renderer = new WorldRenderer(controller);
         paused = false;
@@ -39,6 +42,7 @@ public class CanyonBunnyGame extends ApplicationAdapter {
     @Override
     public void dispose() {
         renderer.dispose();
+        Assets.instance.dispose();
     }
 
     @Override
@@ -48,6 +52,7 @@ public class CanyonBunnyGame extends ApplicationAdapter {
 
     @Override
     public void resume() {
+        Assets.instance.init(new AssetManager());
         paused = false;
     }
 }
