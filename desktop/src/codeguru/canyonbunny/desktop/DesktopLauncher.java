@@ -8,7 +8,7 @@ import codeguru.canyonbunny.CanyonBunnyGame;
 
 public class DesktopLauncher {
     private static final boolean REBUILD_ATLAS = true;
-    private static final boolean DRAW_DEBUG_OUTLINE = true;
+    private static final boolean DRAW_DEBUG_OUTLINE = false;
 
     public static void main (String[] arg) {
         if (REBUILD_ATLAS) {
