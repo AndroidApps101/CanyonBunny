@@ -122,6 +122,13 @@ public class Level {
     }
 
     public void render(SpriteBatch batch) {
+        mountains.render(batch);
 
+        for (Rock rock : rocks) {
+            rock.render(batch);
+        }
+
+        waterOverlay.render(batch);
+        clouds.render(batch);
     }
 }
