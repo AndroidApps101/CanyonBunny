@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 
-import codeguru.canyonbunny.game.objects.AbstractGameObject;
 import codeguru.canyonbunny.game.objects.Clouds;
 import codeguru.canyonbunny.game.objects.Mountains;
 import codeguru.canyonbunny.game.objects.Rock;
@@ -59,8 +58,6 @@ public class Level {
         int lastPixel = -1;
         for (int pixelY = 0; pixelY < pixmap.getHeight(); pixelY++) {
             for (int pixelX = 0; pixelX < pixmap.getWidth(); pixelX++) {
-                AbstractGameObject obj = null;
-                float offsetHeight = 0.0f;
                 // height grows from bottom to top
                 float baseHeight = pixmap.getHeight() - pixelY;
                 // get color of current pixel as 32-bit RGBA value
@@ -75,12 +72,12 @@ public class Level {
                 // rock
                 else if (BLOCK_TYPE.ROCK.sameColor(currentPixel)) {
                     if (lastPixel != currentPixel) {
-                        obj = new Rock();
+                        Rock rock = new Rock();
                         float heightIncreaseFactor = 0.25f;
-                        offsetHeight = -2.5f;
-                        obj.position.set(pixelX,
-                                baseHeight * obj.dimension.y * heightIncreaseFactor + offsetHeight);
-                        rocks.add((Rock) obj);
+                        float offsetHeight = -2.5f;
+                        rock.position.set(pixelX,
+                                baseHeight * rock.dimension.y * heightIncreaseFactor + offsetHeight);
+                        rocks.add(rock);
                     } else {
                         rocks.get(rocks.size - 1).increaseLength(1);
                     }
